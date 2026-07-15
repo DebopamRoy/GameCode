@@ -1,0 +1,31 @@
+// With other global variables
+unsigned long lastHeartbeat = 0;
+
+// Before Bluetooth check
+for (int i = 0; i < NUM_BUTTONS; i++) {
+    Serial.print(digitalRead(buttonsPins[i]));
+    Serial.print(" ");
+}
+Serial.println();
+
+// Can add this
+static bool wasConnected = false;
+
+if (bleGamepad.isConnected())
+{
+    if (!wasConnected)
+    {
+        Serial.println("BLE Connected");
+        wasConnected = true;
+    }
+
+    ...
+}
+else
+{
+    if (wasConnected)
+    {
+        Serial.println("BLE Disconnected");
+        wasConnected = false;
+    }
+}
